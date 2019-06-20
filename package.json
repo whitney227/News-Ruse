@@ -1,0 +1,30 @@
+{
+  "name": "news-ruse",
+  "version": "1.0.0",
+  "description": "A web application created with Mongoose and Cherrio that scrapes news articles from the HuffPost.",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whitney227/News-Ruse.git"
+  },
+  "keywords": [
+    "News",
+    "Scraper"
+  ],
+  "author": "Whitney Crawford",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whitney227/News-Ruse/issues"
+  },
+  "homepage": "https://github.com/whitney227/News-Ruse#readme",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cheerio": "^1.0.0-rc.3",
+    "express": "^4.17.1",
+    "express-handlebars": "^3.1.0",
+    "mongoose": "^5.6.0"
+  }
+}
