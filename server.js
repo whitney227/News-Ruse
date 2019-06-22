@@ -26,5 +26,13 @@ app.use(express.static("public"));
 // TODO
 // ****************************
 // Connect to Mongo DB
+// ****************************
 
 // Routes
+app.get("/scrape", function(req, res) {
+    axios.get("https://www.huffpost.com/").then(function(response){
+        var $ = cheerio.load(response.data);
+
+        
+    })
+})
