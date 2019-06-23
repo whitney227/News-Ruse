@@ -22,11 +22,8 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-
-// TODO
-// ****************************
 // Connect to Mongo DB
-// ****************************
+mongoose.connect("mongodb://localhost/newsdb", { useNewUrlParser: true });
 
 // Routes
 
@@ -85,12 +82,12 @@ app.get("/articles", function (req, res) {
 // TODO
 // ********************************************
 // Route for grabbing a specific Article by id
-// Then populate it with it's note
+// Then populate it with it's comment
 // ********************************************
 
 // TODO
 // ******************************************************
-// Route for saving/updating an Aritcle's associated Note
+// Route for saving/updating an Aritcle's associated Comment
 // ******************************************************
 
 // Start the server
