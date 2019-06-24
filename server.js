@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to Mongo DB
-mongoose.connect("mongodb://localhost/newsdb", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/newsdb", { useNewUrlParser: true });
 
 // Routes
 
@@ -115,7 +115,7 @@ app.post("/articles/:id", function(req, res) {
         res.json(err);
       });
   });
-  
+
 // Start the server
 app.listen(PORT, function() {
     console.log("App running on port " + PORT + "!");
