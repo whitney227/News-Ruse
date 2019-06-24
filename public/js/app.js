@@ -1,13 +1,18 @@
-// on click event for when the scrape articles button is clicked
-$("#download_button").click(function(){
+// load articles to page
+function getResults(){
+  // empty any articles currently on the page
+  $("#articles").empty();
   // Grab the articles as a json
   $.getJSON("/articles", function(data) {
     // for each article
     for (var i = 0; i < data.length; i++) {
       // display info to page
-      $("#articles").append("<p data-id'" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+      $("#articles").prepend("<p data-id'" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "<br />" + data[i].summary + "</p>");
     }
   });
+};
+// Run the getResults function
+getResults();
   
   // Whenever someone clicks a p tag
   $(document).on("click", "p", function() {
@@ -42,7 +47,6 @@ $("#download_button").click(function(){
       }
     });
   });
-});
 
 // When you click the savecomment button
 $(document).on("click", "#savecomment", function() {
