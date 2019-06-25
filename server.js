@@ -39,7 +39,7 @@ app.get("/scrape", function (req, res) {
         // Use cheerio to find the title, link, and summary of each article
         $("a.card").each(function(i, element) {
             var title = $(element).children("span").text();
-            var link = $(element).attr("href");
+            var link = "https://theskimm.com" + $(element).attr("href");
             var summary = $(element).children("p").text();
             
             // save as an object that gets pushed to the results array
