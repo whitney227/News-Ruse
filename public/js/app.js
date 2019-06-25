@@ -7,12 +7,14 @@ function getResults(){
     // for each article
     for (var i = 0; i < data.length; i++) {
       // display info to page
-      $("#articles").prepend("<p data-id'" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "<br />" + data[i].summary + "</p>");
+      $("#articles").prepend("<p data-id'" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].summary + "</p>");
     }
   });
 };
-// Run the getResults function
-getResults();
+// Run the getResults function when scrape articles button is clicked
+$("#download-button").click(function(){
+  getResults();  
+});
   
   // Whenever someone clicks a p tag
   $(document).on("click", "p", function() {
