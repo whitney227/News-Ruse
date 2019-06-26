@@ -7,7 +7,8 @@ function getResults(){
     // for each article
     for (var i = 0; i < data.length; i++) {
       // display info to page
-      $("#articles").prepend("<p data-id'" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].summary + "</p>");
+      $("#articles").append("<section data-id'" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].summary + "</section>");
+      $("#articles").append("<button class=btn-small id=save>Save Article</button>")
     }
   });
 };
@@ -15,6 +16,12 @@ function getResults(){
 $("#download-button").click(function(){
   getResults();  
 });
+
+// Whenever someone clicks on a section tag 
+$(document).on("click", "section", function() {
+  // open the article link
+  $("section").load("data[i].link");
+})
   
   // Whenever someone clicks a p tag
   $(document).on("click", "p", function() {

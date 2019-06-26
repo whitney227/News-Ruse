@@ -10,9 +10,14 @@ nav ul a,
 nav .brand-logo {
   color: #444;
 }
-
-p {
+section {
   line-height: 2rem;
+  font-weight: bold;
+  margin: 20px;
+  width: fit-content;
+}
+#save {
+  margin-left: 20px;
 }
 
 .sidenav-trigger {
