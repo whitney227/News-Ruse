@@ -23,9 +23,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to Mongo DB if deployed
-var MONGODB_URI=process.env.MONGODB_URI || 
-  "mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99";
-mongoose.connect(MONGODB_URI);
+mongoose.connect("mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99");
 
 // // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost:27017/newsdb", { useNewUrlParser: true });
