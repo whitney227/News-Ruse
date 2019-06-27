@@ -41,7 +41,7 @@ $(document).on("click", "section", function() {
       // A button to submit a new comment, with the id of the article saved to it
       $("#comments").append("<button data-id='" + data._id + "' id='savecomment'>Save Comment</button>");
       
-      // If there's a comment in the article
+      // If there's a comment for the article
       if (data.comment) {
         // Place the title of the commnet in the title input
         $("#titleinput").val(data.comment.title);
@@ -54,12 +54,12 @@ $(document).on("click", "section", function() {
 // When you click the savecomment button
 $(document).on("click", "#savecomment", function() {
     // Grab the id associated with the article from the submit button
-    var thisId = $(this).attr("data-id");
+    var thisId = $(this).attr("article._id");
 
     // Run a POST request to change the comment, using what's entered in the inputs
     $.ajax({
         method: "POST",
-        url: "/articles/" + thisId,
+        url: "/articles/:id" + thisId,
         data: {
         // Value taken from title input
         title: $("#titleinput").val(),
