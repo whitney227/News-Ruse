@@ -29,7 +29,7 @@ $(document).on("click", "section", function() {
       method: "GET",
       url: "/articles/" + thisId
     })
-    // With that done, add the note information to the page
+    // With that done, add the comment information to the page
     .then(function(data) {
       console.log(data);
       // The title of the article
