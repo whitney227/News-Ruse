@@ -19,17 +19,11 @@ $("#download-button").click(function(){
 
 // Whenever someone clicks on a section tag 
 $(document).on("click", "section", function() {
-  // open the article link
-  $("section").load("data[i].link");
-})
-  
-  // Whenever someone clicks a p tag
-  $(document).on("click", "p", function() {
-    // Empty the notes from the note section
-    $("#comments").empty();
-    // Save the id from the p tag
-    var thisId = $(this).attr("data-id");
-    
+  // Empty the notes from the note section
+  $("#comments").empty();
+  // Save the id from the section tag
+  var thisId = $(this).attr("data-id");  
+ 
     // Now make an ajax call for the Article
     $.ajax({
       method: "GET",
