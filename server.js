@@ -23,7 +23,13 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // Connect to Mongo DB
-mongoose.connect("mongodb://localhost:27017/newsdb", { useNewUrlParser: true });
+mongoose.connect(
+  process.env.MONGODB_URI || 
+  "mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99",
+  {
+    useMongoClient: true
+  }
+);
 
 // Routes
 
