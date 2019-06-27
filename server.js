@@ -22,10 +22,14 @@ app.use(express.json());
 // Make public a static folder
 app.use(express.static("public"));
 
-// Connect to Mongo DB
+// Connect to Mongo DB if deployed
 var MONGODB_URI=process.env.MONGODB_URI || 
   "mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99";
 mongoose.connect(MONGODB_URI);
+
+// // Connect to the Mongo DB
+mongoose.connect("mongodb://localhost:27017/newsdb", { useNewUrlParser: true });
+
 
 // Routes
 
