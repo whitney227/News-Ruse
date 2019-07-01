@@ -8,7 +8,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 
 // Initialize Express
 var app = express();
@@ -20,13 +20,12 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
-app.use(express.static("public"));
+if (process.env.NODE_ENV ==="production") {
+  app.use(express.static("client/build"));
+}
 
-// Connect to Mongo DB if deployed
-mongoose.connect("mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99");
-
-// // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost:27017/newsdb", { useNewUrlParser: true });
+// Connect to the Mongo DB
+mongoose.connect(process.env.MONGODB_URI || "mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99" || "mongodb://localhost:27017/newsdb");
 
 
 // Routes
