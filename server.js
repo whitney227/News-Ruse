@@ -4,7 +4,8 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var axios = require("axios");
 var cheerio = require("cheerio");
-
+var bodyParser = require("body-parser");
+var expressHandlebars= require("express-handlebars");
 // Require all models
 var db = require("./models");
 
@@ -13,6 +14,18 @@ var PORT = process.env.PORT || 3000;
 // Initialize Express
 var app = express();
 
+//set up express router
+var router = express.Router();
+
+// require routes file and pass to router object
+require("./config/routes")(router);
+
+// Connect Handlebars to Express app
+app.engine("handlebars", expressHandlebars({
+  defaultLayout: "main"
+}));
+app.set("view engine", "handlbars");
+
 // Configure middleware
 // Use morgan logger for logging requests
 app.use(logger("dev"));
@@ -20,13 +33,21 @@ app.use(logger("dev"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Make public a static folder
+app.use(express.static(__dirname + "/public"));
+
 if (process.env.NODE_ENV ==="production") {
   app.use(express.static("client/build"));
 }
+// use bodyParser in our app
+app.use(bodyParser.urlencoded({
+  extended: false
+}));
+// send requests through our router
+app.use(router);
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99" || "mongodb://localhost:27017/newsdb");
-
+//mongoose.connect(process.env.MONGODB_URI || "mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99" || "mongodb://localhost:27017/newsdb");
+mongoose.connect("mongodb://localhost/newsdb");
 
 // Routes
 
