@@ -1,80 +1,100 @@
-// load articles to page
-function getResults(){
-  // empty any articles currently on the page
-  $("#articles").empty();
-  // Grab the articles as a json
-  $.getJSON("/articles", function(data) {
-    // for each article
-    for (var i = 0; i < data.length; i++) {
-      // display info to page
-      $("#articles").append("<section data-id'" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].summary + "</section>");
-      $("#articles").append("<button class=btn-small id=save>Save Article</button>")
-    }
-  });
-};
-// Run the getResults function when scrape articles button is clicked
-$("#download-button").click(function(){
-  getResults();  
-});
+$(document).ready(function(){
+  // set reference to the article-container div for dynamic content
+  // add event listener to generate saved article
+  // add scrape new article button
+  var articleContainer = $(".article-container");
+  $(document).on("click", ".btn.save", handleArticleSave);
+  $(document).on("click", ".scrape-new", handleArticleScrape);
 
-// Whenever someone clicks on a section tag 
-$(document).on("click", "section", function() {
-  // Empty the notes from the note section
-  $("#comments").empty();
-  // Save the id from the section tag
-  var thisId = $(this).attr("data-id");  
- 
+  // load page
+  initPage();
+  
+  function initPage(){
+    // empty any articles currently on the page
+    articleContainer.empty();
+    // Grab the articles as a json
+    $.get("/api/headlines?saved=false")
+      .then(function(data){
+        if (data && data.length) {
+          renderArticles(data);
+        }
+        else {
+          renderEmpty();
+        }
+    });
+  }
+  function renderArticles(articles) {
+    // append HTML to page 
+    var articlePanels = [];
+    for (var i = 0; i < articles.length; i++) {
+      articlePanels.push(createPanel(articles[i]));
+    }
+    // once articles are in the array, append to container
+    articleContainer.append(articlePanels);
+  }
+  function createPanel(article) {
+    // take in single JSON object for an article and use jQuery to format HTML
+    var panel =
+    $(["<div class='panel panel-default'>",
+      "<div class='panel-heading'>",
+      "<h3>",
+      article.headline,
+      "<a class='btn btn-success save'>",
+      "Save Article",
+      "</a>",
+      "</h3>",
+      "</div>",
+      "<div class='panel-body'>",
+      article.summary,
+      "</div>",
+      "</div>",
+    ].join(""));
+    panel.data("_id", article._id);
+    return panel;
+  }
+
+  function renderEmpty() {
+    // explain if there are no articles to view
+    var emptyAlert = 
+    $(["<div class='alert alert-warning text-center'>",
+      "<h4>Uh oh, looks like we don't have any new articles!</h4>",
+      "</div>",
+      "<div class='panel panel-default'>",
+      "<div class='panel-heading text-center'>",
+      "<h3>What would you like to do?</h3>",
+      "</div>",
+      "<div class='panel-body text-center'>",
+      "<h4><a class='scrape-new'>Try Scraping New Articles</a></h4>",
+      "<h4><a href='/saved'>Go to Saved Articles</a></h4>",
+      "</div>",
+      "</div>"
+    ].join(""));
+    articleContainer.append(emptyAlert);
+  }
+  
+  function handleArticleSave(){
+    var articleToSave = $(this).parents(".panel").data();
+    articleToSave.saved = true;
     // Now make an ajax call for the Article
     $.ajax({
-      method: "GET",
-      url: "/articles/" + thisId
+      method: "PATCH",
+      url: "/api/headlines",
+      data: articleToSave
     })
-    // With that done, add the comment information to the page
     .then(function(data) {
-      console.log(data);
-      // The title of the article
-      $("#comments").append("<h2>" + data.title + "</h2>");
-      // An input to enter a new title
-      $("#comments").append("<input id='titleinput' name='title' >");
-      // A textarea to add a new comment body
-      $("#comments").append("<textarea id='bodyinput' name='body'></textarea>");
-      // A button to submit a new comment, with the id of the article saved to it
-      $("#comments").append("<button data-id='" + data._id + "' id='savecomment'>Save Comment</button>");
-      
-      // If there's a comment for the article
-      if (data.comment) {
-        // Place the title of the commnet in the title input
-        $("#titleinput").val(data.comment.title);
-        // Place the body of the comment in the body textarea
-        $("#bodyinput").val(data.comment.body);
+      if (data.ok) {
+        initPage();
       }
     });
-  });
-
-// When you click the savecomment button
-$(document).on("click", "#savecomment", function() {
-    // Grab the id associated with the article from the submit button
-    var thisId = $(this).attr("article._id");
-
-    // Run a POST request to change the comment, using what's entered in the inputs
-    $.ajax({
-        method: "POST",
-        url: "/articles/:id" + thisId,
-        data: {
-        // Value taken from title input
-        title: $("#titleinput").val(),
-        // Value taken from comment textarea
-        body: $("#bodyinput").val()
-        }
-    })
-        // With that done
-        .then(function(data) {
-            // Log the response
-            console.log(data);
-            // Empty the comments section
-            $("#comments").empty();
-        });
-    // Also, remove the values entered in the input and textarea for comment entry
-    $("#titleinput").val("");
-    $("#bodyinput").val("");
+  }
+  
+  function handleArticleScrape() {
+    $.get("/api/fetch")
+      .then(function(data) {
+        initPage();
+        bootbox.alert("<h3 class='text-center m-top-80'>" + data.message + "</h3>");
+      });
+  }
 });
+   
+  

@@ -1,77 +1,8 @@
-/* Custom Stylesheet */
-/**
- * Use this file to override Materialize files so you can update
- * the core Materialize files in the future
- *
- * Made By MaterializeCSS.com
- */
-.white{
-  background-color: #26a69a;
-}
-nav ul a,
-nav .brand-logo {
-  color: #444;
-}
-section {
-  line-height: 2rem;
-  font-weight: bold;
-  margin: 20px;
-  width: fit-content;
-}
-#save {
-  margin-left: 20px;
+
+.scrape-new{
+  color:white
 }
 
-.sidenav-trigger {
-  color: #26a69a;
-}
-
-.parallax-container {
-  min-height: 380px;
-  line-height: 0;
-  height: auto;
-  background: url(./images/urban-street-in-morning.jpg);
-}
-  .parallax-container .section {
-    width: 100%;
-  }
-
-@media only screen and (max-width : 992px) {
-  .parallax-container .section {
-    position: absolute;
-    top: 40%;
-  }
-  #index-banner .section {
-    top: 10%;
-  }
-}
-
-@media only screen and (max-width : 600px) {
-  #index-banner .section {
-    top: 0;
-  }
-}
-
-.icon-block {
-  padding: 0 15px;
-}
-.icon-block .material-icons {
-  font-size: inherit;
-}
-
-footer.page-footer {
-  margin: 0;
-}
-#articles {
-  display: inline-block;
-  overflow: auto;
-  width: 60%;
-  height: 700px;
-}
-#comments {
-  float: right;
-  width: 30%;
-}
 textarea, input {
   display: block;
   width: 100%;
