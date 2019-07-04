@@ -1,78 +1,36 @@
-// Server routes
+// Dependencies
+var express= require("express");
+var router = express.Router();
+var scrape = require("../controllers/scrape")
+var headline = require("../controllers/headline");
 
-// bring in scrape function
-var scrape = require("../scripts/scrape");
 
-// Bring in articles and comments from the controller
-var articlesController = require("../controllers/articles");
-var commentsController = require("../controllers/comments");
+//Home Page Route
+router.get('/', headline.index);
 
-module.exports = function(router) {
-    // This route renders the homepage
-    router.get("/", function(req, res) {
-        res.render("home");
-    });
+//Scrape Web Route
+router.get('/scrape', scrape.scrapeSkimm);
 
-    // This route renders the saved page
-    router.get("/saved", function(req, res) {
-        res.render("saved");
-    });
+//Get All Saved Articles
+router.get("/saved", headline.savedArticles);
 
-    router.get("/api/fetch", function(req, res) {
-        articlesController.fetch(function(err, docs) {
-            if (!docs || docs.insertedCount === 0) {
-                res.json({
-                    message: "No new articles today. Check back tomorrow!"
-                });
-            }
-            else{
-                res.json({
-                    message: "Added " + docs.insertedCount + " new articles!"
-                });
-            }
-        });
-    });
-    router.get("/api/headlines", function(req, res) {
-        var query = {};
-        if (req.query.saved) {
-            query = req.query;
-        }
+//Get Article to add Note
+router.get("/article/:id", headline.getArticle);
 
-        articlesController.get(query, function(data){
-            res.json(data);
-        });
-    });
-    router.delete("/api/headlines/:id", function(req, res){
-        var query ={};
-        query.id = req.params.id;
-        articlesController.delete(query, function(err, data){
-            res.json(data);
-        });
-    });
-    router.patch("/api/headlines", function(req, res) {
-        articlesController.update(req.body, function(err, data){
-            res.json(data);
-        });
-    });
-    router.get("/api/comments/:headline_id?", function(req, res){
-        var query ={};
-        if (req.params.headline_id) {
-            query._id = req.params.headline_id;
-        }
-        commentsController.get(query, function(err, data){
-            res.json(data);
-        });
-    });
-    router.delete("/api/comments/:id", function(req, res){
-        var query = {};
-        query._id = req.params.id;
-        commentsController.delete(query, function( err, data){
-            res.json(data);
-        });
-    });
-    router.post("/api/comments", function(req, res){
-        commentsController.save(req.body, function(data){
-            res.json(data);
-        });
-    });
-}
+//Save Article Route
+router.post("/saved/:id", headline.saveArticle);
+
+//Unsave Article Route
+router.post("/unsaved/:id", headline.unsaveArticle);
+
+//Get Note by Id Route
+router.get('/getNote/:id', headline.getNote);
+
+//Save Note Route
+router.post("/addNote/:articleId", headline.addNote);
+
+//Delete Note Route
+router.delete('/deleteNote/:noteId/:articleId', headline.deleteNote);
+
+
+module.exports = router;

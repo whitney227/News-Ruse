@@ -1,0 +1,61 @@
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">News Ruse</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/">Home</a></li>
+      <li class="active"><a href="/saved">Saved Articles</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="jumbotron text-center">
+  <div class="caption">
+    <h1>News Ruse</h1>
+    <p>The Daily Skimm Edition</p>
+  </div>
+</div>
+
+<div class="container mt-5">
+    <div class="container">
+      {{#each articles}}
+            <div class="alert alert-secondary" id="navbar-shadow">
+                <div class="row ml-1 my-1 divider "><h3>{{this.title}}</h3></div>
+                <div class="row mt-2">
+                  {{!-- later use if want to add image --}}
+                    <div class="col-12 col-md-3 mr-3"></div>
+                    <div class="col-12 col-md-8">
+                        <div class="row"><p>{{this.summary}}</p></div>
+                        <div class="row">
+                                <button data-id={{_id}} type="submit" class="btn btn-outline-dark mr-4 my-2 unsaveArticleBtn">
+                                            <span class="navItem"><i class="far fa-trash-alt fa-lg unsaveArticleBtn"></i>  Unsave Article</span>
+                                </button>
+                            <button data-toggle="modal" data-target="#myModal" data-id={{_id}} type="submit" class="btn btn-outline-dark mr-4 my-2 addNoteBtn">
+                                    <i class="far fa-sticky-note fa-lg "></i>  Notes
+                            </button>
+                            <button type="submit" class="btn btn-outline-dark mr-4 my-2">
+                                    <a class="nav-link" href={{this.link}} target="_blank">
+                                        <span class="navItem"><i class="far fa-newspaper fa-lg"></i>  View Details</span> 
+                                    </a>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+      {{/each}}
+    </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+  <p>The Daily Skimm Mongo Scrapper</p> 
+  </div>
+</footer>
+
+  
+
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="../public/js/app.js"></script>

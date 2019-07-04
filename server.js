@@ -2,40 +2,44 @@
 var express = require("express");
 var mongoose = require("mongoose");
 var bodyParser = require("body-parser");
-var expressHandlebars= require("express-handlebars");
+var logger = require("morgan");
+var exphbs= require("express-handlebars");
 
 var PORT = process.env.PORT || 3000;
+// Require routes and use
+var routes = require("./config/routes");
 
 // Initialize Express
 var app = express();
 
-//set up express router
-var router = express.Router();
-
-// require routes file and pass to router object
-require("./config/routes")(router);
+// import routes
+app.use("/", routes);
 
 // Make public a static folder
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "public"));
 
 // Connect Handlebars to Express app
-app.engine("handlebars", expressHandlebars({
-  defaultLayout: "main"
-}));
+app.engine("handlebars",exphbs({defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
+// use morgan for debug logging
+app.use(logger("dev"));
+
 // use bodyParser in our app
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-// send requests through our router middleware
-app.use(router);
+// local db connection
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsdb";
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-// Connect to the Mongo DB
-var db = process.env.MONGODB_URI || "mongodb://localhost/newsdb";
-//mongoose.connect(process.env.MONGODB_URI || "mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99" || "mongodb://localhost:27017/newsdb");
-mongoose.connect(db, { useNewUrlParser: true });
+mongoose.connect("mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99");
+var db = mongoose.connection;
+
+// export the db
+module.exports =db;
 
 // Start the server
 app.listen(PORT, function() {
