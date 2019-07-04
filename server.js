@@ -32,8 +32,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 // local db connection
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsdb";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+// var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsdb";
+// mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 mongoose.connect("mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99");
 var db = mongoose.connection;
