@@ -1,16 +1,18 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/">News Ruse</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li><a href="/">Home</a></li>
-      <li class="active"><a href="/saved">Saved Articles</a></li>
-    </ul>
+    <span class="text-light">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">News Ruse</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="/">Home</a></li>
+        <li class="active"><a href="/saved">Saved Articles</a></li>
+      </ul>
+    </span>
   </div>
 </nav>
 
-<div class="jumbotron text-center">
+<div class="jumbotron text-center" style="background-color:#00a8ff">
   <div class="caption">
     <h1>News Ruse</h1>
     <p>The Daily Skimm Edition</p>
@@ -28,10 +30,10 @@
                     <div class="col-12 col-md-8">
                         <div class="row"><p>{{this.summary}}</p></div>
                         <div class="row">
-                                <button data-id={{_id}} type="submit" class="btn btn-outline-dark mr-4 my-2 unsaveArticleBtn">
+                                <button data-id={{_id}} type="submit" class="btn btn-warning mr-4 my-2 unsaveArticleBtn">
                                             <span class="navItem"><i class="far fa-trash-alt fa-lg unsaveArticleBtn"></i>  Unsave Article</span>
                                 </button>
-                            <button data-toggle="modal" data-target="#myModal" data-id={{_id}} type="submit" class="btn btn-outline-dark mr-4 my-2 addNoteBtn">
+                            <button data-toggle="modal" data-target="#myModal" data-id={{_id}} type="submit" class="btn btn-warning mr-4 my-2 addNoteBtn">
                                     <i class="far fa-sticky-note fa-lg "></i>  Notes
                             </button>
                             <button type="submit" class="btn btn-outline-dark mr-4 my-2">
@@ -48,8 +50,8 @@
 </div>
 
 <footer class="footer">
-  <div class="container">
-  <p>The Daily Skimm Mongo Scrapper</p> 
+  <div class="container-fluid" style="background-color:#d7d7d7">
+  <p style="color:black; text-align:center"><b>The Daily Skimm Mongo Scrapper</b></p> 
   </div>
 </footer>
 

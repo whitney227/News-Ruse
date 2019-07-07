@@ -1,20 +1,20 @@
 
 <nav class="navbar navbar-default">
   <div class="container-fluid">
-  <div class="navbar-header">
-    <a class="navbar-brand" href="/"><b>News Ruse</b></a>
-  </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="/">Home</a></li>
-      <li><a href="/saved">Saved Articles</a></li>
-      <li><a class="btn btn-danger scrape-new" style="color:white">Scrape New Articles</a></li>
-    </ul>
+    <span class="text-light">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/"><b>News Ruse</b></a>
+      </div>
+      <ul class="nav navbar-nav">
+          <li class="active"><a href="/">Home</a></li>
+          <li><a href="/saved">Saved Articles</a></li>
+          <li><a class="btn btn-warning" style="color:white">Scrape New Articles</a></li>
+      </ul>
+    </span>
   </div>
 </nav>
 
-<div class="jumbotron text-center" style="background-image:url(../../public/css/images/newspapers.jpg)">
-  <div class="background-image">
-  </div>
+<div class="jumbotron text-center" style="background-color:#00a8ff">
   <div class="caption">
     <h1>News Ruse</h1>
     <p>The Daily Skimm Edition</p>
@@ -33,10 +33,10 @@
                         <div class="col-12 col-md-8">
                             <div class="row"><p>{{this.summary}}</p></div>
                             <div class="row">
-                                    <button data-id={{_id}} type="submit" class="btn btn-outline-dark mr-4 my-2 saveArticleBtn">
+                                    <button data-id={{_id}} type="submit" class="btn btn-warning mr-4 my-2 saveArticleBtn">
                                                 <i class="far fa-save fa-lg saveArticleBtn"></i>  Save Article
                                     </button>
-                                <button data-toggle="modal" data-target="#myModal" data-id={{_id}} type="submit" class="btn btn-outline-dark mr-4 my-2 addNoteBtn">
+                                <button data-toggle="modal" data-target="#myModal" data-id={{_id}} type="submit" class="btn btn-warning mr-4 my-2 addNoteBtn">
                                         <i class="far fa-sticky-note fa-lg"></i> Notes
                                 </button>
                                 <button type="submit" class="btn btn-outline-dark mr-4 my-2">
@@ -55,8 +55,8 @@
   
 
 <footer class="footer">
-  <div class="container">
-  <p>The Daily Skimm Mongo Scrapper</p> 
+  <div class="container-fluid" style="background-color:#d7d7d7">
+  <p style="color:black; text-align:center"><b>The Daily Skimm Mongo Scrapper</b></p> 
   </div>
 </footer>
 
