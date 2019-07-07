@@ -1,15 +1,11 @@
 // Dependencies
 var express= require("express");
 var router = express.Router();
-var scrape = require("../controllers/scrape")
 var headline = require("../controllers/headline");
 
 
 //Home Page Route
 router.get('/', headline.index);
-
-//Scrape Web Route
-router.get('/scrape', scrape.scrapeSkimm);
 
 //Get All Saved Articles
 router.get("/saved", headline.savedArticles);
