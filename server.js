@@ -72,14 +72,9 @@ app.use(bodyParser.urlencoded({
   extended: false
 }));
 
-// local db connection
-mongoose.connect("mongodb://localhost:27017/newsdb", { useNewUrlParser: true });
-
-// // mongoose.connect("mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99");
-// var db = mongoose.connection;
-
-// // export the db
-// module.exports =db;
+// database connection
+var MONGODB_URI ="mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99" || "mongodb://localhost:27017/newsdb";
+mongoose.connection(MONGODB_URI);
 
 // Start the server
 app.listen(PORT, function() {
