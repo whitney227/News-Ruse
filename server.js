@@ -73,8 +73,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 // database connection
-mongoose.connect('mongodb://localhost:27017/newsdb', {useNewUrlParser: true});
-// "mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99",
+// mongoose.connect('mongodb://localhost:27017/newsdb', {useNewUrlParser: true});
+mongoose.connect("mongodb://user1:password1@ds129484.mlab.com:29484/heroku_ds085w99", {useNewParser: true});
 
 
 // Start the server
