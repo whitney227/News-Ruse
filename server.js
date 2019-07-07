@@ -57,7 +57,7 @@ app.get("/scrape", function (req, res) {
 });
 
 // Make public a static folder
-app.use(express.static(__dirname + "public"));
+app.use("/public", express.static("./public/"));
 
 // Connect Handlebars to Express app
 app.engine("handlebars",exphbs({defaultLayout: "main"}));

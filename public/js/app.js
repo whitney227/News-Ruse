@@ -1,7 +1,7 @@
 $(document).ready(function () {
   //JQuery to save article when "Save Article" button clicked
   $(".saveArticleBtn").on("click", function () {
-      const articleId = $(this).attr("data-id");
+      var articleId = $(this).attr("data-id");
       $.ajax({
           method: "POST",
           url: "/saved/" + articleId
