@@ -60,7 +60,7 @@ app.get("/scrape", function (req, res) {
 app.use("/public", express.static("./public/"));
 
 // Connect Handlebars to Express app
-app.engine("handlebars",exphbs({defaultLayout: "main"}));
+app.engine("handlebars",exphbs({defaultLayout: "main", partialDir:[__dirname + '/views/partials']}));
 app.set("view engine", "handlebars");
 
 // use morgan for debug logging
